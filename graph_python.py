@@ -6,23 +6,25 @@ from collections import defaultdict
 
 # This class represents a directed graph
 # using adjacency list representation
-class Graph:
+class Graph():
 
     # Constructor
     def __init__(self):
         # default dictionary to store graph
         self.graph = defaultdict(list)
+        self.nodes = 0
 
     # function to add an edge to graph
     def addEdge(self, u, v):
         self.graph[u].append(v)
+        self.nodes = max(u, v, self.nodes)
 
     # Function to print a BFS of graph
 
 
 def BFS(graph, source):
     # Mark all the vertices as not visited
-    visited = [False] * (max(graph.graph) + 1)
+    visited = [False] * (graph.nodes + 1)
 
     # Create a queue for BFS, the node in the queue hasn't finish the search
     queue = [source]
@@ -46,7 +48,7 @@ def BFS(graph, source):
 
 
 def DFS(graph, source):
-    visited = [False] * (max(graph.graph) + 1)  # record whether a node is visited before
+    visited = [False] * (graph.nodes + 1)  # record whether a node is visited before
     visited[source] = True
     need_to_check = [source]
     while need_to_check:
@@ -57,21 +59,22 @@ def DFS(graph, source):
                 need_to_check = [neighbor_node] + need_to_check
             visited[neighbor_node] = True
 
+
 # Driver code
 
 # Create a graph given in
 # the above diagram
 g = Graph()
 g.addEdge(0, 1)
-g.addEdge(0, 2)
 g.addEdge(1, 2)
-g.addEdge(2, 0)
 g.addEdge(2, 3)
-g.addEdge(3, 3)
+g.addEdge(1, 4)
+g.addEdge(1, 5)
+g.addEdge(1, 6)
 
+print(g.graph,g.nodes)
 print("Following is Breadth First Traversal"
       " (starting from vertex 2)")
-BFS(g, 2)
+BFS(g, 0)
 print('')
-DFS(g, 2)
-
+DFS(g, 0)

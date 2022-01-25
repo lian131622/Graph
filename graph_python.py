@@ -45,6 +45,18 @@ def BFS(graph, source):
                 visited[i] = True
 
 
+def DFS(graph, source):
+    visited = [False] * (max(graph.graph) + 1)  # record whether a node is visited before
+    visited[source] = True
+    need_to_check = [source]
+    while need_to_check:
+        s = need_to_check.pop(0)
+        print(s, end=" ")
+        for neighbor_node in graph.graph[s]:
+            if not visited[neighbor_node]:
+                need_to_check = [neighbor_node] + need_to_check
+            visited[neighbor_node] = True
+
 # Driver code
 
 # Create a graph given in
@@ -60,4 +72,6 @@ g.addEdge(3, 3)
 print("Following is Breadth First Traversal"
       " (starting from vertex 2)")
 BFS(g, 2)
+print('')
+DFS(g, 2)
 
